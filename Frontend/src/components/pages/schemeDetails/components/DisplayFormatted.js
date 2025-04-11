@@ -10,7 +10,6 @@ const renderChildren = (children) => {
         if (child.underline) style.textDecoration = 'underline';
         if (child.italic) style.fontStyle = 'italic';
 
-        // Check for type "link" and handle separately
         if (child.type === "link") {
             return (
                 <a
@@ -20,28 +19,26 @@ const renderChildren = (children) => {
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                 >
-                    {renderChildren(child.children)} {/* Render children of the link if present */}
+                    {renderChildren(child.children)}
                 </a>
             );
         }
 
-        // Ensure text is handled even if empty
         return (
             <span key={index} style={style}>
-                {text || ''}
+                {text}
             </span>
         );
     });
 };
 
-
 const TableComponent = ({ children }) => (
     <div className="overflow-x-auto my-4">
         <table className="min-w-full border-collapse border border-gray-300">
             <tbody>
-                {children.map((row, index) => (
+                {children?.map((row, index) => (
                     <tr key={index} className="border-b border-gray-300">
-                        {row.children.map((cell, cellIndex) => (
+                        {row.children?.map((cell, cellIndex) => (
                             <td key={cellIndex} className="p-2 border-r border-gray-300">
                                 {renderChildren(cell.children)}
                             </td>
@@ -54,14 +51,13 @@ const TableComponent = ({ children }) => (
 );
 
 const ListItem = ({ item }) => {
-    if (!item?.type === "list_item") return null;
+    if (item?.type !== "list_item") return null;
 
-    // Find any nested lists in the item's children
     const listContent = [];
     const textContent = [];
 
     item.children?.forEach(child => {
-        if (child.type === "ol_list") {
+        if (child.type === "ol_list" || child.type === "ul_list") {
             listContent.push(child);
         } else {
             textContent.push(child);
@@ -70,11 +66,11 @@ const ListItem = ({ item }) => {
 
     return (
         <li className="mb-2">
-            {textContent.length > 0 && renderChildren(textContent)}
+            {renderChildren(textContent)}
             {listContent.map((list, index) => (
                 <ol key={index} className="list-decimal pl-6 mt-2">
-                    {list.children.map((child, childIndex) => (
-                        <ListItem key={childIndex} item={child} />
+                    {list.children?.map((child, idx) => (
+                        <ListItem key={idx} item={child} />
                     ))}
                 </ol>
             ))}
@@ -83,8 +79,8 @@ const ListItem = ({ item }) => {
 };
 
 const processListItems = (items) => {
-    return items.map((item, index) => {
-        if (item.type === "ol_list") {
+    return items?.map((item, index) => {
+        if (item.type === "ol_list" || item.type === "ul_list") {
             return (
                 <ol key={index} className="list-decimal pl-6 mt-2">
                     {processListItems(item.children)}
@@ -92,14 +88,17 @@ const processListItems = (items) => {
             );
         }
         if (item.type === "list_item") {
+            const children = item.children || [];
             return (
                 <li key={index} className="mb-2">
-                    {renderChildren(item.children.filter(child => child.type !== "ol_list"))}
-                    {item.children.filter(child => child.type === "ol_list").map((sublist, subIndex) => (
-                        <ol key={subIndex} className="list-decimal pl-6 mt-2">
-                            {processListItems(sublist.children)}
-                        </ol>
-                    ))}
+                    {renderChildren(children.filter(child => child.type !== "ol_list" && child.type !== "ul_list"))}
+                    {children
+                        .filter(child => child.type === "ol_list" || child.type === "ul_list")
+                        .map((sublist, subIndex) => (
+                            <ol key={subIndex} className="list-decimal pl-6 mt-2">
+                                {processListItems(sublist.children)}
+                            </ol>
+                        ))}
                 </li>
             );
         }
@@ -118,12 +117,11 @@ const RenderList = ({ list }) => {
 };
 
 const AlignJustify = ({ content }) => {
-    return content.map((item, index) => {
+    return content?.map((item, index) => {
         switch (item.type) {
             case "ol_list":
-                return (
-                    <RenderList key={index} list={item} />
-                );
+            case "ul_list":
+                return <RenderList key={index} list={item} />;
             case "paragraph":
                 return (
                     <p key={index} className="my-2">
@@ -147,6 +145,7 @@ const RenderContent = ({ content }) => {
                         <AlignJustify content={item.children} />
                     </div>
                 );
+
             case "paragraph":
                 return (
                     <p key={index} className="my-2">
@@ -162,14 +161,8 @@ const RenderContent = ({ content }) => {
                 );
 
             case "ol_list":
-                return (
-                    <RenderList key={index} list={item} />
-                );
-
             case "ul_list":
-                return (
-                    <RenderList key={index} list={item} />
-                );
+                return <RenderList key={index} list={item} />;
 
             case "table":
                 return <TableComponent key={index} children={item.children} />;
@@ -185,17 +178,52 @@ const RenderContent = ({ content }) => {
 };
 
 const DisplayFormatted = ({ benefitsData }) => {
-    if (!benefitsData || benefitsData.length === 0) {
-        return <div>No data available</div>;
+    if (!benefitsData || (Array.isArray(benefitsData) && benefitsData.length === 0)) {
+        return <p className="text-gray-500 italic">No data available.</p>;
     }
 
+    // If it's a plain string
+    if (typeof benefitsData === 'string') {
+        return <p className="text-gray-700">{benefitsData}</p>;
+    }
+
+    // If it's a single object (not an array), render key-value pairs
+    if (typeof benefitsData === 'object' && !Array.isArray(benefitsData)) {
+        return (
+            <div className="space-y-2">
+                {Object.entries(benefitsData).map(([key, value], index) => (
+                    <div key={index}>
+                        <strong className="text-gray-800">{key}</strong>: <span className="text-gray-600">{String(value)}</span>
+                    </div>
+                ))}
+            </div>
+        );
+    }
+
+    // If it's an array of rich content (with `type` fields), use RenderContent
+    if (benefitsData.every(item => typeof item === 'object' && item.type)) {
+        return (
+            <div className="prose max-w-none">
+                <RenderContent content={benefitsData} />
+            </div>
+        );
+    }
+
+    // Otherwise, assume it's an array of objects with key-value pairs
     return (
-        <div className="prose max-w-none">
-            {benefitsData.map((item, index) => (
-                <RenderContent key={index} content={[item]} />
+        <div className="space-y-4">
+            {benefitsData.map((item, idx) => (
+                <div key={idx} className="space-y-2">
+                    {Object.entries(item).map(([key, value], index) => (
+                        <div key={index}>
+                            <strong className="text-gray-800">{key}</strong>: <span className="text-gray-600">{String(value)}</span>
+                        </div>
+                    ))}
+                </div>
             ))}
         </div>
     );
 };
+
 
 export default DisplayFormatted;

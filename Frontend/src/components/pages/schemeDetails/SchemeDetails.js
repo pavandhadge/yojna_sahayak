@@ -34,6 +34,7 @@ const SchemeDetails = () => {
             try {
                 const data = await getSchemeById(id);
                 setScheme(data);
+                console.log(data);
             } catch (err) {
                 setError("Failed to fetch scheme details");
                 console.error(err);
@@ -130,7 +131,7 @@ const SchemeDetails = () => {
                         {/* Important Details */}
                         <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 bg-gray-50 rounded-xl p-4">
                             {scheme?.nodalMinistryName && (
-                                <p className="text-gray-600">Ministry: <span className="font-medium text-gray-900">{scheme.nodalMinistryName}</span></p>
+                                <p className="text-gray-600">Ministry: <span className="font-medium text-gray-900">{scheme.nodalMinistryName?.label}</span></p>
                             )}
                             {scheme?.state && (
                                 <p className="text-gray-600">State: <span className="font-medium text-gray-900">{scheme.state}</span></p>
@@ -174,48 +175,52 @@ const SchemeDetails = () => {
 
                     {/* Tab Content */}
                     <div className="py-4">
-                        {activeTab === 'overview' && (
-                            <DisplayMarkdown content={scheme?.detailedDescription_md} />
-                        )}
+    {activeTab === 'overview' && (
+        <DisplayMarkdown content={scheme?.detailedDescription_md || 'No overview available.'} />
+    )}
 
-                        {activeTab === 'eligibility' && (
-                            <DisplayMarkdown content={scheme?.eligibilityDescription_md} />
-                        )}
+    {activeTab === 'eligibility' && (
+        <DisplayMarkdown content={scheme?.eligibilityDescription_md || 'No eligibility information provided.'} />
+    )}
 
-                        {activeTab === 'benefits' && (
-                            <div className="bg-gray-50 rounded-xl p-6">
-                                <DisplayFormatted benefitsData={scheme?.benefits} />
-                            </div>
-                        )}
+    {activeTab === 'benefits' && (
+        <div className="bg-gray-50 rounded-xl p-6">
+            <DisplayFormatted benefitsData={scheme?.benefits} />
+        </div>
+    )}
 
-                        {activeTab === 'documents' && (
-                            <div className="bg-gray-50 rounded-xl p-6">
-                                <DisplayFormatted benefitsData={scheme?.documents_required} />
-                            </div>
-                        )}
+    {activeTab === 'documents' && (
+        <div className="bg-gray-50 rounded-xl p-6">
+            <DisplayFormatted benefitsData={scheme?.documents_required} />
+        </div>
+    )}
 
-                        {activeTab === 'apply' && (
-                            <div className="space-y-4">
-                                {scheme?.applicationProcess?.map((process, index) => (
-                                    <div key={index} className="bg-gray-50 rounded-xl p-6">
-                                        <h3 className="font-semibold text-gray-800 mb-3">{process?.mode}:</h3>
-                                        <DisplayFormatted benefitsData={process?.process} />
-                                    </div>
-                                ))}
-                            </div>
-                        )}
+    {activeTab === 'apply' && scheme?.applicationProcess?.length > 0 ? (
+        <div className="space-y-4">
+            {scheme.applicationProcess.map((process, index) => (
+                <div key={index} className="bg-gray-50 rounded-xl p-6">
+                    <h3 className="font-semibold text-gray-800 mb-3">{process?.mode || 'Application Mode'}:</h3>
+                    <DisplayFormatted benefitsData={process?.process} />
+                </div>
+            ))}
+        </div>
+    ) : (
+        activeTab === 'apply' && <p className="text-gray-500">No application process available.</p>
+    )}
 
-                        {activeTab === 'faq' && scheme?.faqs?.length > 0 && (
-                            <div className="space-y-4">
-                                {scheme.faqs.map((faq, index) => (
-                                    <div key={index} className="bg-gray-50 rounded-xl p-6">
-                                        <h3 className="font-semibold text-gray-900 mb-2">{faq.question}</h3>
-                                        <p className="text-gray-600">{faq.answer}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-                    </div>
+    {activeTab === 'faq' && scheme?.faqs?.length > 0 ? (
+        <div className="space-y-4">
+            {scheme.faqs.map((faq, index) => (
+                <div key={index} className="bg-gray-50 rounded-xl p-6">
+                    <h3 className="font-semibold text-gray-900 mb-2">{faq?.question || 'Question'}</h3>
+                    <p className="text-gray-600">{faq?.answer || 'Answer not available.'}</p>
+                </div>
+            ))}
+        </div>
+    ) : (
+        activeTab === 'faq' && <p className="text-gray-500">No FAQs found.</p>
+    )}
+</div>
 
                     {/* Action Buttons */}
                     <div className="flex flex-wrap gap-4 pt-6 border-t border-gray-100">
