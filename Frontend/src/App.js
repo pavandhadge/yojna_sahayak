@@ -25,7 +25,7 @@ function App() {
 
                     {/* HEADER-NAVBAR-SIDEBAR */}
                     <div className="fixed z-40 w-full">
-                        {console.log("BACKEND_URL", process.env.REACT_APP_BACKEND_URL)}
+                        {/* {console.log("BACKEND_URL", process.env.REACT_APP_BACKEND_URL)} */}
                         {/* <div
                             className={`${isSidebarActive ? "active" : ""
                                 } sidebar-parent z-50`}
