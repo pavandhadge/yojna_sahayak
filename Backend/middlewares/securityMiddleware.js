@@ -2,16 +2,16 @@ import crypto from 'crypto';
 
 // List of known headless browsers and API tools signatures
 const blockedUserAgents = [
-    'postman',
+    // 'postman',
     'puppeteer',
     'headless',
     'playwright',
     'selenium',
     'phantomjs',
     'cypress',
-    'axios/',
+    // 'axios/',
     'node-fetch',
-    'curl',
+    // 'curl',
     'wget',
     'insomnia',
     'python-requests',

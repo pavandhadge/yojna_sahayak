@@ -1,5 +1,7 @@
 import axios from "axios";
+// import dotenv from "dotenv";
 import userAuthenticatedAxiosInstance from "../users/userAuthenticatedAxiosInstance";
+// dotenv.config();
 // const BACKEND_URL = `${process.env.REACT_APP_BACKEND_URL}/api/v1/schemes`;
 const BACKEND_URLV2 = `${process.env.REACT_APP_BACKEND_URL}/api/v2/schemes`;
 const userAxiosInstance = userAuthenticatedAxiosInstance('/api/v2/schemes');
