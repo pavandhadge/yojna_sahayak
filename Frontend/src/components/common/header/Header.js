@@ -5,7 +5,8 @@ import { UserContext } from "../../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import userAuthenticatedAxiosInstance from "../../../services/users/userAuthenticatedAxiosInstance";
 import lionlogo from "../../../assets/lionsymbol.png";
-
+import TranslateToggle from "../translate/googleTranslater";
+import TranslatePopup from "../translate/googleTranslater";
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -44,6 +45,7 @@ const Header = () => {
 
   return (
     <>
+     
       <header className="bg-gradient-to-r from-green-500 to-green-600 h-20 flex items-center justify-center px-4 md:px-8 w-full relative shadow-md">
         {/* Logo and company name with z-index to appear above other elements */}
         <div className="absolute left-4 md:left-8 top-1/2 transform -translate-y-1/2 z-10">
@@ -89,6 +91,10 @@ const Header = () => {
 
         {/* Login/profile section - positioned absolutely on the right */}
         <div className="absolute right-4 md:right-8 top-1/2 transform -translate-y-1/2 flex gap-4 items-center">
+        <div className="hidden md:block">
+
+          <TranslatePopup/>
+        </div>
           {isUserLoggedIn ? (
             <div className="relative" ref={profileRef}>
               <button
@@ -165,6 +171,7 @@ const Header = () => {
               >
                 Suggestions
               </Link>
+              <TranslatePopup/>
             </div>
           </div>
         )}
