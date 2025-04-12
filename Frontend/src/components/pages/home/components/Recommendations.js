@@ -140,7 +140,7 @@ const Recommendations = () => {
 
         {recommendations.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {recommendations.map((scheme) => (
+            {recommendations.slice(0, 3).map((scheme) => (
               <Link
                 to={`/scheme/${scheme._id}`}
                 key={scheme._id}

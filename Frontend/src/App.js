@@ -12,7 +12,7 @@ import Schemes from "./components/pages/schemes/Schemes";
 import Profile from "./components/pages/profile/Profile";
 import Recommendations from "./components/pages/recommendations/Recommendations";
 import { Toaster } from 'react-hot-toast';
-
+import AboutUs from "./components/pages/about/about";
 
 function App() {
 
@@ -52,6 +52,7 @@ function App() {
                             <Route element={<Unauthenticated />}>
                                 <Route path="/login" element={<Login />} />
                                 <Route path="/signup" element={<Signup />} />
+                                <Route path="/about" element={<AboutUs />} />
                             </Route>
 
                             {/* Protected Routes - Only Accessible When Logged In */}

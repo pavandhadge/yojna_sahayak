@@ -424,7 +424,7 @@ const SchemeDetails = () => {
                     </section>
 
                     {/* Action Buttons */}
-                    <div className="flex flex-wrap gap-4 justify-center mt-12">
+                    <div className="flex flex-wrap gap-4 justify-start mt-12">
                         <button
                             onClick={() => generatePDF(contentRef, scheme?.schemeName)}
                             className="flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all shadow-md hover:shadow-lg"
