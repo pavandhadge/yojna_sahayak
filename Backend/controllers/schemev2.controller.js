@@ -1,6 +1,19 @@
 import Schemev2 from "../models/schemev2.model.js";
 import User from "../models/user.model.js";
 
+const createScheme = async (req, res) => {
+    try {
+        console.log("req.body", req.body);
+        const data = req.body.data;
+        const scheme = new Schemev2(data);
+        await scheme.save();
+        res.status(201).json(scheme);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+
 const getAllSchemes = async (req, res) => {
     try {
         const { page = 1, limit = 9 } = req.query;
@@ -243,4 +256,4 @@ const getFavoriteSchemes = async (req, res) => {
     }
 };
 
-export { getAllSchemes, getSchemeById, getSchemeByCategory, getFilteredSchemes, saveFavoriteSchemes, removeFavoriteSchemes, getFavoriteSchemes };
+export {createScheme, getAllSchemes, getSchemeById, getSchemeByCategory, getFilteredSchemes, saveFavoriteSchemes, removeFavoriteSchemes, getFavoriteSchemes };

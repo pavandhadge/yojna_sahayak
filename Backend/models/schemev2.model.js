@@ -74,6 +74,11 @@ schemeSchema.index({ state: 1, level: 1 });
 schemeSchema.index({ tags: 1 });
 schemeSchema.index({ schemeCategory: 1 });
 
+schemeSchema.pre('save', function (next) {
+    this.updatedAt = Date.now();
+    next();
+});
+
 const Schemev2 = model('Schemesv2', schemeSchema);
 
 export default Schemev2;

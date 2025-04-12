@@ -1,6 +1,6 @@
 import express from "express";
 const router = express.Router();
-import { getAllSchemes, getSchemeById, getSchemeByCategory, getFilteredSchemes, saveFavoriteSchemes, removeFavoriteSchemes, getFavoriteSchemes } from "../../controllers/schemev2.controller.js";
+import {createScheme, getAllSchemes, getSchemeById, getSchemeByCategory, getFilteredSchemes, saveFavoriteSchemes, removeFavoriteSchemes, getFavoriteSchemes } from "../../controllers/schemev2.controller.js";
 import { verifyJWT } from "../../middlewares/auth.middleware.js";
 
 router.get("/get-all-schemes", getAllSchemes);
@@ -10,5 +10,6 @@ router.get("/get-filtered-schemes", getFilteredSchemes);
 router.post("/save-favorite-schemes", verifyJWT, saveFavoriteSchemes);
 router.delete("/remove-favorite-schemes/:id", verifyJWT, removeFavoriteSchemes);
 router.get("/get-favorite-schemes", verifyJWT, getFavoriteSchemes);
+router.post("/create-scheme", createScheme);
 
 export default router;
