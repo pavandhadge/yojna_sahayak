@@ -93,24 +93,49 @@ const SchemeSearch = ({ onSearch }) => {
     };
 
     const SelectField = ({ label, name, value, onChange, options, icon: Icon }) => (
-        <div className="relative">
-            <select
-                name={name}
-                value={value}
-                onChange={onChange}
-                className="w-full p-2.5 pl-10 pr-12 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#74B83E] focus:border-transparent transition-all duration-200 appearance-none text-gray-700 focus:outline-none text-sm"
-                style={{ maxWidth: '100%' }}
+        <div className="relative group">
+        <select
+          name={name}
+          value={value}
+          onChange={onChange}
+          className="w-full py-3 pl-10 pr-10 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 text-gray-800 text-base appearance-none shadow-xs hover:shadow-sm focus:shadow-md focus:outline-none"
+        >
+          <option value="" disabled className="text-gray-400">
+            Select {label}
+          </option>
+          {options.map((option) => (
+            <option 
+              key={option} 
+              value={option} 
+              className="truncate hover:bg-green-50"
             >
-                <option value="">Select {label}</option>
-                {options.map(option => (
-                    <option key={option} value={option} className="max-w-full text-ellipsis">
-                        {option}
-                    </option>
-                ))}
-            </select>
-            <Icon className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
-            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" size={14} />
+              {option}
+            </option>
+          ))}
+        </select>
+        
+        {/* Leading icon */}
+        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-green-600 transition-colors">
+          <Icon size={18} />
         </div>
+        
+        {/* Custom dropdown arrow */}
+        <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500 group-focus-within:text-green-600 transition-colors">
+          <svg 
+            width="16" 
+            height="16" 
+            viewBox="0 0 20 20" 
+            fill="currentColor"
+            className="transition-transform group-focus-within:rotate-180"
+          >
+            <path 
+              fillRule="evenodd" 
+              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" 
+              clipRule="evenodd" 
+            />
+          </svg>
+        </div>
+      </div>
     );
 
     const tabs = [
@@ -121,32 +146,150 @@ const SchemeSearch = ({ onSearch }) => {
     ];
 
     return (
-        <div className="bg-gray-200">
-            <div className="max-w-7xl mx-auto px-4 py-4">
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    {/* Search Bar */}
-                    <div className="relative max-w-3xl mx-auto">
-                        <div className="flex items-center bg-white border-2 border-[#74B83E] rounded-xl overflow-hidden shadow-sm focus-within:shadow-md transition-shadow duration-200">
-                            <input
-                                type="text"
-                                name="search"
-                                placeholder="Search for government schemes..."
-                                value={filters.search}
-                                onChange={handleFilterChange}
-                                className="flex-1 px-4 sm:py-3 text-base border-none focus:outline-none focus:ring-0 min-w-0"
-                            />
-                            <button
-                                type="submit"
-                                className="px-4 sm:px-6 py-3 bg-[#74B83E] text-white hover:bg-[#5a9230] transition-colors duration-200 flex items-center gap-2 flex-shrink-0"
-                            >
-                                <Search size={18} />
-                                <span className="hidden sm:inline">Search</span>
-                            </button>
-                        </div>
-                    </div>
+        <div className="max-w-full mx-auto px-4 py-8 sm:py-10">
+        
+      
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Search Bar */}
+            <div className="relative max-w-full ">
+              <div className="flex items-center bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-200 border border-gray-200 focus-within:border-green-500 focus-within:ring-1 focus-within:ring-green-500">
+                <input
+                  type="text"
+                  name="search"
+                  placeholder="Search for government schemes..."
+                  value={filters.search}
+                  onChange={handleFilterChange}
+                  className="flex-1 px-5 py-3 sm:py-3.5 text-base sm:text-[15px] border-none focus:outline-none focus:ring-0 min-w-0 bg-transparent placeholder-gray-500"
+                />
+                <button
+                  type="submit"
+                  className="px-5 sm:px-6 py-3 sm:py-3.5 bg-green-600 text-white hover:bg-green-700 transition-colors duration-200 flex items-center gap-2 flex-shrink-0 rounded-r-[7px]"
+                >
+                  <Search size={18} className="flex-shrink-0" />
+                  <span className="hidden sm:inline font-medium text-sm">Search</span>
+                </button>
+              </div>
+            </div>
+      
 
-                    {/* Active Filters */}
-                    {Object.entries(filters).some(([_, value]) => value) && (
+      
+            {/* Filter Tabs */}
+            <div className="bg-white rounded-lg shadow-xs overflow-hidden border border-gray-200">
+              <div className="flex overflow-x-auto scrollbar-hide border-b border-gray-200">
+                {tabs.map(tab => (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium whitespace-nowrap transition-all duration-200 flex-1 min-w-fit
+                      ${activeTab === tab.id 
+                        ? 'text-green-600 border-b-2 border-green-500 bg-green-50 font-medium' 
+                        : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'}`}
+                  >
+                    <tab.icon size={16} className="flex-shrink-0" />
+                    <span>{tab.label}</span>
+                  </button>
+                ))}
+              </div>
+      
+              <div className="p-4 sm:p-5">
+                {activeTab === 'basic' && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <SelectField
+                      label="Category"
+                      name="category"
+                      value={filters.category}
+                      onChange={handleFilterChange}
+                      options={CATEGORIES}
+                      icon={BookOpen}
+                    />
+                    <SelectField
+                      label="Ministry"
+                      name="nodalMinistryName"
+                      value={filters.nodalMinistryName}
+                      onChange={handleFilterChange}
+                      options={MINISTRIES}
+                      icon={Building2}
+                    />
+                  </div>
+                )}
+      
+                {activeTab === 'location' && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <SelectField
+                      label="State"
+                      name="state"
+                      value={filters.state}
+                      onChange={handleFilterChange}
+                      options={STATES}
+                      icon={MapPin}
+                    />
+                    <SelectField
+                      label="Level"
+                      name="level"
+                      value={filters.level}
+                      onChange={handleFilterChange}
+                      options={LEVELS}
+                      icon={Filter}
+                    />
+                  </div>
+                )}
+      
+                {activeTab === 'eligibility' && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <SelectField
+                      label="Gender"
+                      name="gender"
+                      value={filters.gender}
+                      onChange={handleFilterChange}
+                      options={["Male", "Female", "Other"]}
+                      icon={Users}
+                    />
+                    <SelectField
+                      label="Income Group"
+                      name="incomeGroup"
+                      value={filters.incomeGroup}
+                      onChange={handleFilterChange}
+                      options={["EWS", "General", "OBC", "SC", "ST"]}
+                      icon={Coins}
+                    />
+                  </div>
+                )}
+      
+                {activeTab === 'dates' && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="relative">
+                      <label className="block text-sm font-medium text-gray-700 mb-1.5">Open Date</label>
+                      <div className="relative">
+                        <input
+                          type="date"
+                          name="openDate"
+                          value={filters.openDate}
+                          onChange={handleFilterChange}
+                          className="w-full px-3 pl-9 py-2 bg-white border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 text-gray-700 text-sm"
+                        />
+                        <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+                      </div>
+                    </div>
+                    <div className="relative">
+                      <label className="block text-sm font-medium text-gray-700 mb-1.5">Close Date</label>
+                      <div className="relative">
+                        <input
+                          type="date"
+                          name="closeDate"
+                          value={filters.closeDate}
+                          onChange={handleFilterChange}
+                          className="w-full px-3 pl-9 py-2 bg-white border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 text-gray-700 text-sm"
+                        />
+                        <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+                        {/* Active Filters */}
+                        {Object.entries(filters).some(([_, value]) => value) && (
                         <div className="bg-white rounded-lg p-3 shadow-sm border border-gray-100">
                             <div className="flex flex-wrap gap-2">
                                 {Object.entries(filters).map(([key, value]) => 
@@ -167,122 +310,9 @@ const SchemeSearch = ({ onSearch }) => {
                             </div>
                         </div>
                     )}
-
-                    {/* Filter Tabs */}
-                    <div className="bg-white rounded-lg shadow-sm overflow-hidden border border-[#74B83E]">
-                        <div className="flex overflow-x-auto border-b border-gray-200">
-                            {tabs.map(tab => (
-                                <button
-                                    key={tab.id}
-                                    type="button"
-                                    onClick={() => setActiveTab(tab.id)}
-                                    className={`flex items-center gap-1.5 px-3 sm:px-4 py-2.5 text-sm font-medium whitespace-nowrap transition-colors duration-200 flex-1
-                                        ${activeTab === tab.id 
-                                            ? 'text-[#74B83E] border-b-2 border-[#74B83E] bg-green-50' 
-                                            : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'}`}
-                                >
-                                    <tab.icon size={16} className="flex-shrink-0" />
-                                    <span className="hidden sm:inline">{tab.label}</span>
-                                </button>
-                            ))}
-                        </div>
-
-                        <div className="p-4">
-                            {activeTab === 'basic' && (
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                    <SelectField
-                                        label="Category"
-                                        name="category"
-                                        value={filters.category}
-                                        onChange={handleFilterChange}
-                                        options={CATEGORIES}
-                                        icon={BookOpen}
-                                    />
-                                    <SelectField
-                                        label="Ministry"
-                                        name="nodalMinistryName"
-                                        value={filters.nodalMinistryName}
-                                        onChange={handleFilterChange}
-                                        options={MINISTRIES}
-                                        icon={Building2}
-                                    />
-                                </div>
-                            )}
-
-                            {activeTab === 'location' && (
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                    <SelectField
-                                        label="State"
-                                        name="state"
-                                        value={filters.state}
-                                        onChange={handleFilterChange}
-                                        options={STATES}
-                                        icon={MapPin}
-                                    />
-                                    <SelectField
-                                        label="Level"
-                                        name="level"
-                                        value={filters.level}
-                                        onChange={handleFilterChange}
-                                        options={LEVELS}
-                                        icon={Filter}
-                                    />
-                                </div>
-                            )}
-
-                            {activeTab === 'eligibility' && (
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                    <SelectField
-                                        label="Gender"
-                                        name="gender"
-                                        value={filters.gender}
-                                        onChange={handleFilterChange}
-                                        options={["Male", "Female", "Other"]}
-                                        icon={Users}
-                                    />
-                                    <SelectField
-                                        label="Income Group"
-                                        name="incomeGroup"
-                                        value={filters.incomeGroup}
-                                        onChange={handleFilterChange}
-                                        options={["EWS", "General", "OBC", "SC", "ST"]}
-                                        icon={Coins}
-                                    />
-                                </div>
-                            )}
-
-                            {activeTab === 'dates' && (
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                    <div className="relative">
-                                        <input
-                                            type="date"
-                                            name="openDate"
-                                            value={filters.openDate}
-                                            onChange={handleFilterChange}
-                                            className="w-full p-[.430rem] pl-10 pr-4 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#74B83E] focus:border-transparent transition-all duration-200"
-                                            placeholder="Open Date"
-                                        />
-                                        <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
-                                    </div>
-                                    <div className="relative">
-                                        <input
-                                            type="date"
-                                            name="closeDate"
-                                            value={filters.closeDate}
-                                            onChange={handleFilterChange}
-                                            className="w-full p-[.430rem] pl-10 pr-4 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#74B83E] focus:border-transparent transition-all duration-200"
-                                            placeholder="Close Date"
-                                        />
-                                        <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                </form>
-            </div>
+          </form>
         </div>
-    );
+      );
 };
 
 export default SchemeSearch;

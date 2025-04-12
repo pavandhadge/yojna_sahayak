@@ -1,5 +1,5 @@
 import { FileText, Building, Landmark, Search } from "lucide-react";
-
+import { useNavigate } from "react-router-dom";
 const StatCard = ({ icon: Icon, title, value }) => (
   <div className="bg-white p-6 rounded-lg shadow-md flex items-center group border border-gray-200  hover:border-black transition-all">
     <Icon size={48} className="text-[#74B83E] mr-8" />
@@ -11,6 +11,7 @@ const StatCard = ({ icon: Icon, title, value }) => (
 );
 
 const TotalSchemes = () => {
+  const navigate = useNavigate();
   return (
     <section className="px-8 py-16 bg-gray-150">
       <h1 className="text-4xl font-bold text-center mb-12 text-gray-800">
@@ -35,7 +36,10 @@ const TotalSchemes = () => {
           />
         </div>
         <div className="text-center">
-          <button className="bg-[#74B83E] text-white px-8 py-4 rounded-full text-xl font-semibold flex items-center mx-auto transition-all duration-300 hover:bg-green-600 hover:scale-105">
+          <button 
+            onClick={() => navigate("/schemes")}
+            className="bg-[#74B83E] text-white px-8 py-4 rounded-full text-xl font-semibold flex items-center mx-auto transition-all duration-300 hover:bg-green-600 hover:scale-105"
+          >
             <Search className="mr-3" />
             Find Schemes for You
           </button>
