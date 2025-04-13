@@ -141,10 +141,10 @@ const AboutUs = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
             {[
-              { name: "Dr. Priya Sharma", role: "Policy Expert", bio: "Former civil servant with 15 years experience" },
-              { name: "Rahul Verma", role: "Tech Lead", bio: "Built India's first welfare scheme search engine" },
-              { name: "Ananya Patel", role: "Community Outreach", bio: "Connects NGOs with beneficiaries" },
-              { name: "Vikram Joshi", role: "Data Analyst", bio: "Ensures our information stays current" },
+                { name: "Mr. Sharad Etthar", role: "Tech Lead", bio: "Built India's first welfare scheme search engine" },
+                { name: "Mr. Yash Saindane ", role: "Data Analyst", bio: "Ensures our information stays current" },
+              { name: " Mr. Devandhu Deshmukh", role: "Policy Expert", bio: "Former civil servant with 15 years experience" },
+              { name: "Mr. Jaivyankatesh Yadav", role: "Community Outreach", bio: "Connects NGOs with beneficiaries" },
             ].map((member, index) => (
               <div key={index} className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
                 <div className="bg-green-100 h-48 flex items-center justify-center">

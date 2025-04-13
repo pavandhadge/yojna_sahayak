@@ -13,6 +13,10 @@ import Profile from "./components/pages/profile/Profile";
 import Recommendations from "./components/pages/recommendations/Recommendations";
 import { Toaster } from 'react-hot-toast';
 import AboutUs from "./components/pages/about/about";
+import PrivacyPolicy from "./components/pages/extrapages/Privacy_policy";
+import TermsOfService from "./components/pages/extrapages/TermsOfServices";
+import CookiesPolicy from "./components/pages/extrapages/CookiesPolicy";
+
 
 function App() {
 
@@ -53,6 +57,9 @@ function App() {
                                 <Route path="/login" element={<Login />} />
                                 <Route path="/signup" element={<Signup />} />
                                 <Route path="/about" element={<AboutUs />} />
+                                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                                <Route path="/terms-of-service" element={<TermsOfService />} />
+                                <Route path="/cookies-policy" element={<CookiesPolicy />} />
                             </Route>
 
                             {/* Protected Routes - Only Accessible When Logged In */}

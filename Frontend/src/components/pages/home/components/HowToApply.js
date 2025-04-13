@@ -1,6 +1,8 @@
 import { UserPlus, Search, CheckSquare, ArrowRight } from "lucide-react";
 
 const StepCard = ({ icon: Icon, title, description, index, isLast }) => (
+  <>
+
   <div className="relative flex flex-col items-center text-center">
     {/* Step connector (except for last item) */}
     {!isLast && (
@@ -29,6 +31,7 @@ const StepCard = ({ icon: Icon, title, description, index, isLast }) => (
       </div>
     </div>
   </div>
+  </>
 );
 
 const HowToApply = () => {

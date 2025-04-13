@@ -21,9 +21,9 @@ const Footer = () => {
     {
       title: "Legal",
       links: [
-        { label: "Imprint", href: "#imprint" },
-        { label: "Privacy Policy", href: "#privacy" },
-        { label: "Terms of Service", href: "#terms" },
+        { label: "Imprint", href: "/privacy-policy" },
+        { label: "Privacy Policy", href: "/privacy-policy" },
+        { label: "Terms of Service", href: "/terms-of-service" },
       ],
     },
   ];
@@ -161,19 +161,19 @@ const Footer = () => {
             </p>
             <div className="flex flex-wrap justify-center gap-3 sm:gap-6">
               <a
-                href="#privacy"
+                href="/privacy-policy"
                 className="text-xs sm:text-sm text-gray-500 hover:text-green-700 transition-colors"
               >
                 Privacy Policy
               </a>
               <a
-                href="#terms"
+                href="/terms-of-service"
                 className="text-xs sm:text-sm text-gray-500 hover:text-green-700 transition-colors"
               >
                 Terms of Service
               </a>
               <a
-                href="#cookies"
+                href="/cookies-policy"
                 className="text-xs sm:text-sm text-gray-500 hover:text-green-700 transition-colors"
               >
                 Cookie Policy
