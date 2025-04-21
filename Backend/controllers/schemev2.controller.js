@@ -4,11 +4,14 @@ import User from "../models/user.model.js";
 const createScheme = async (req, res) => {
     try {
         console.log("req.body", req.body);
-        const data = req.body.data;
+        const data = JSON.parse(req.body.data);
+        console.log("data", data);
+
         const scheme = new Schemev2(data);
         await scheme.save();
         res.status(201).json(scheme);
     } catch (error) {
+        console.error("Error creating scheme:", error);
         res.status(500).json({ error: error.message });
     }
 };
@@ -47,6 +50,7 @@ const getSchemeById = async (req, res) => {
 
 const getSchemeByCategory = async (req, res) => {
     try {
+        
         const { page = 1, limit = 9 } = req.query;
         const options = {
             page: parseInt(page),
@@ -54,15 +58,25 @@ const getSchemeByCategory = async (req, res) => {
             sort: { createdAt: -1 }
         };
 
-        const schemes = await Schemev2.paginate(
-            { schemeCategory: req.params.category },
-            options
-        );
+        const schemes = await Schemev2.aggregate([
+            {
+                $search: {
+                    index: "default", // Using the Atlas Search index
+                    text: {
+                        query: req.params.category, // Match the category name
+                        path: "schemeCategory", // Field to search
+                    },
+                },
+            },
+            { $skip: (page - 1) * limit },
+            { $limit: limit }
+        ]);
+
         res.status(200).json({
-            schemes: schemes.docs,
-            totalPages: schemes.totalPages,
-            currentPage: schemes.page,
-            totalSchemes: schemes.totalDocs
+            schemes,
+            totalPages: Math.ceil(schemes.length / limit),
+            currentPage: page,
+            totalSchemes: schemes.length
         });
     } catch (error) {
         res.status(404).json({ message: "Category not found" });
@@ -77,36 +91,35 @@ const getFilteredSchemes = async (req, res) => {
             category, tags, schemeName
         } = req.query;
 
-        // Prepare the filter object
-        const filter = {};
+        // Parse page and limit as integers
+        const parsedPage = parseInt(page, 10);
+        const parsedLimit = parseInt(limit, 10);
 
-        // Apply search filter to multiple fields
+        if (isNaN(parsedLimit) || parsedLimit <= 0) {
+            return res.status(400).json({ message: "Invalid limit value" });
+        }
+
+        let pipeline = [];
+
+        // Full-text search conditions
         if (search) {
-            const searchConditions = [];
-
-            // Check if search term is in 'state' (exact match)
-            searchConditions.push({ state: { $eq: search } });
-
-            // Check if search term is in 'nodalMinistryName' (partial match using regex)
-            searchConditions.push({ nodalMinistryName: { $regex: search, $options: 'i' } });
-
-            // Check if search term is in 'schemeName' (partial match using regex)
-            searchConditions.push({ schemeName: { $regex: search, $options: 'i' } });
-
-            // Check if search term is in 'tags' array (exact match)
-            searchConditions.push({ tags: { $in: [search] } });
-
-            // Check if search term is in 'level' (exact match)
-            searchConditions.push({ level: { $eq: search } });
-
-            // Check if search term is in 'Category' array (partial match using regex)
-            searchConditions.push({ Category: { $regex: search, $options: 'i' } });
-
-            // Check if search term is in 'detailedDescription_md' (partial match)
-            searchConditions.push({ detailedDescription_md: { $regex: search, $options: 'i' } });  // Case-insensitive
-
-            // Combine all the conditions using $or
-            filter.$or = searchConditions;
+            pipeline.push({
+                $search: {
+                    index: "default",
+                    text: {
+                        query: search, // Use the search term
+                        path: [
+                            "state",
+                            "nodalMinistryName",
+                            "schemeName",
+                            "tags",
+                            "level",
+                            "Category",
+                            "detailedDescription_md"
+                        ], // Fields to search in
+                    },
+                },
+            });
         }
 
         // Handle date range filters for openDate and closeDate
@@ -121,63 +134,97 @@ const getFilteredSchemes = async (req, res) => {
                 dateConditions.push({ closeDate: { $lte: new Date(closeDate) } });
             }
 
-            // Add conditions where openDate or closeDate are null
             dateConditions.push({ openDate: { $eq: null } });
             dateConditions.push({ closeDate: { $eq: null } });
 
-            filter.$or = dateConditions;
+            pipeline.push({ $match: { $or: dateConditions } });
         }
 
-        // Filter by state
-        if (state) {
-            filter.state = state;
-        }
+        // Apply additional filters (state, nodalMinistryName, etc.)
+        // const filter = {};
+        // if (state) filter.state = state;
+        // if (nodalMinistryName) filter.nodalMinistryName = nodalMinistryName;
+        // if (level) filter.level = level;
 
-        // Filter by nodalMinistryName
-        if (nodalMinistryName) {
-            filter.nodalMinistryName = nodalMinistryName;
-        }
+        // if (category) {
+        //     const categoriesArray = category.split(',');
+        //     filter.category = { $in: categoriesArray };
+        // }
 
-        // Filter by level
-        if (level) {
-            filter.level = level;
-        }
+        // if (tags) {
+        //     const tagsArray = tags.split(',');
+        //     filter.tags = { $in: tagsArray };
+        // }
 
-        // Filter by category (assuming it's an array of categories)
-        if (category) {
-            const categoriesArray = category.split(','); // assuming categories are passed as a comma-separated string
-            filter.category = { $in: categoriesArray };
-        }
+        // if (schemeName) {
+        //     filter.$or = [
+        //         { schemeName: { $regex: schemeName, $options: 'i' } },
+        //         { schemeShortTitle: { $regex: schemeName, $options: 'i' } },
+        //     ];
+        // }
 
-        // Filter by tags (assuming it's an array of tags)
-        if (tags) {
-            const tagsArray = tags.split(','); // assuming tags are passed as a comma-separated string
-            filter.tags = { $in: tagsArray };
-        }
+        // // Combine the filters
+        // if (Object.keys(filter).length > 0) {
+        //     pipeline.push({ $match: filter });
+        // }
 
-        // Filter by schemeName (case-insensitive)
-        if (schemeName) {
-            filter.$or = filter.$or || []; // Ensure the $or array exists
+        // // Pagination
+        // pipeline.push({ $skip: (parsedPage - 1) * parsedLimit });
+        // pipeline.push({ $limit: parsedLimit });
 
-            // Case-insensitive match for schemeName
-            filter.$or.push({ schemeName: { $regex: schemeName, $options: 'i' } });
+        // // Execute aggregation
+        // const schemes = await Schemev2.aggregate(pipeline);
+        const filter = {};
+const orFilters = [];
 
-            // Case-insensitive match for schemeShortTitle
-            filter.$or.push({ schemeShortTitle: { $regex: schemeName, $options: 'i' } });
-        }
+if (state) {
+    orFilters.push({ state: { $regex: state, $options: 'i' } });
+}
 
-        const options = {
-            page: parseInt(page),
-            limit: parseInt(limit),
-            sort: { createdAt: -1 }
-        };
+if (nodalMinistryName) {
+    orFilters.push({ nodalMinistryName: { $regex: nodalMinistryName, $options: 'i' } });
+}
 
-        const schemes = await Schemev2.paginate(filter, options);
+if (level) {
+    orFilters.push({ level: { $regex: level, $options: 'i' } });
+}
+
+if (category) {
+    const categoriesArray = category.split(',');
+    // Convert each category into a regex for partial match
+    orFilters.push({ category: { $in: categoriesArray.map(cat => new RegExp(cat, 'i')) } });
+}
+
+if (tags) {
+    const tagsArray = tags.split(',');
+    // Convert each tag into a regex for partial match
+    orFilters.push({ tags: { $in: tagsArray.map(tag => new RegExp(tag, 'i')) } });
+}
+
+if (schemeName) {
+    orFilters.push(
+        { schemeName: { $regex: schemeName, $options: 'i' } },
+        { schemeShortTitle: { $regex: schemeName, $options: 'i' } }
+    );
+}
+
+// Combine the filters
+if (orFilters.length > 0) {
+    pipeline.push({ $match: { $or: orFilters } });
+}
+
+// Pagination
+pipeline.push({ $skip: (parsedPage - 1) * parsedLimit });
+pipeline.push({ $limit: parsedLimit });
+
+// Execute aggregation
+const schemes = await Schemev2.aggregate(pipeline);
+
         res.status(200).json({
-            schemes: schemes.docs,
-            totalPages: schemes.totalPages,
-            currentPage: schemes.page,
-            totalSchemes: schemes.totalDocs
+            schemes,
+            totalPages: Math.ceil(schemes.length / parsedLimit),
+            currentPage: parsedPage,
+            totalSchemes: schemes.length
         });
     } catch (err) {
         console.error(err);

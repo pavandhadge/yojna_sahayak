@@ -20,11 +20,11 @@ const schemeSchema = new Schema({
     },
     schemeName: {
         type: String,
-        required: true
+        // required: true
     },
     schemeShortTitle: {
         type: String,
-        required: true
+        // required: true
     },
     tags: [{
         type: String

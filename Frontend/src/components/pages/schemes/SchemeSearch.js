@@ -3,7 +3,7 @@ import { Search, BookOpen, Users, Coins, Calendar, Building2, MapPin, Filter, Ch
 
 // Constants remain the same
 const CATEGORIES = [
-    "Women and Child",
+   { label:"Women and Child",value},
     "Utility & Sanitation",
     "Travel & Tourism",
     "Transport & Infrastructure Sports & Culture",
