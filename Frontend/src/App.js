@@ -16,7 +16,7 @@ import AboutUs from "./components/pages/about/about";
 import PrivacyPolicy from "./components/pages/extrapages/Privacy_policy";
 import TermsOfService from "./components/pages/extrapages/TermsOfServices";
 import CookiesPolicy from "./components/pages/extrapages/CookiesPolicy";
-import VoiceChat from "./VoiceChat";
+// import VoiceChat from "./VoiceChat";
 
 
 function App() {
