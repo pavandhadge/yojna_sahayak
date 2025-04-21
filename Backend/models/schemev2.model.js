@@ -10,6 +10,12 @@ const schemeSchema = new Schema({
         type: Date,
         default: null
     },
+    gender: {
+        type: String,
+        allowedValues:["male","female","other"],
+        default: null
+    },
+
     state: {
         type: String,
         default: null
@@ -20,11 +26,11 @@ const schemeSchema = new Schema({
     },
     schemeName: {
         type: String,
-        required: true
+        // required: true
     },
     schemeShortTitle: {
         type: String,
-        required: true
+        // required: true
     },
     tags: [{
         type: String
@@ -60,7 +66,34 @@ const schemeSchema = new Schema({
     }],
     documents_required: [{
         type: Object
-    }]
+    }],
+    metadata:{
+        residence : {
+            type: String,
+            // allowedValues: ["rural", "urban", "both"],
+            default: "both"
+        },
+        minority: {
+            type: String,
+            // allowedValues: ["yes", "no"],
+            default: "no"
+        },
+        differentlyAbled: {
+            type: String,
+            // allowedValues: ["yes", "no"],
+            default: "no"
+        },
+        occupation:{
+            type:String,
+            // allowedValues:["farmer","labourer","businessman","student","other"],
+            default:null
+        },
+        employmentStatus:{
+            type:String,
+            // allowedValues:["employed","self-employed","unemployed"],
+            default:"employed"
+        },
+    }
 }, {
     timestamps: true
 });

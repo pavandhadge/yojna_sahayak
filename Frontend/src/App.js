@@ -16,6 +16,7 @@ import AboutUs from "./components/pages/about/about";
 import PrivacyPolicy from "./components/pages/extrapages/Privacy_policy";
 import TermsOfService from "./components/pages/extrapages/TermsOfServices";
 import CookiesPolicy from "./components/pages/extrapages/CookiesPolicy";
+import VoiceChat from "./VoiceChat";
 
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
                             {/* Public Routes - No Auth Needed */}
 
                             <Route path="/" element={<Home />} />
+                            {/* <Route path="/voicechat" element={<VoiceChat />} /> */}
                             <Route path="/schemes" element={<Schemes />} />
                             <Route path="/scheme/:id" element={<SchemeDetails />} />
                             {/* Unauthenticated Routes - Only Accessible When Logged Out */}

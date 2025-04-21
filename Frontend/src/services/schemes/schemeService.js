@@ -29,8 +29,17 @@ export const getFilteredSchemes = async (filters, page = 1, limit = 9) => {
             ...(filters.level && { level: filters.level }),
             ...(filters.category && { category: filters.category }),
             ...(filters.gender && { gender: filters.gender }),
-            ...(filters.incomeGroup && { incomeGroup: filters.incomeGroup })
+            ...(filters.incomeGroup && { incomeGroup: filters.incomeGroup }),
+            // Add missing filters
+            ...(filters.occupation && { occupation: filters.occupation }),
+            ...(filters.residence && { residence: filters.residence }),
+            ...(filters.differentlyabled && { differentlyabled: filters.differentlyabled }),
+            ...(filters.minority && { minority: filters.minority }),
+            ...(filters.casteCategory && { casteCategory: filters.casteCategory })
         };
+
+         console.log("Filters:", filters);
+         console.log("Params:", params);
 
         const { data } = await api.get('/get-filtered-schemes', { params });
         return {

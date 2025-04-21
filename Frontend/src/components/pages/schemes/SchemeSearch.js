@@ -3,7 +3,7 @@ import { Search, BookOpen, Users, Coins, Calendar, Building2, MapPin, Filter, Ch
 
 // Constants remain the same
 const CATEGORIES = [
-    "Women and Child",
+   "Women and Child",
     "Utility & Sanitation",
     "Travel & Tourism",
     "Transport & Infrastructure Sports & Culture",
@@ -13,11 +13,25 @@ const CATEGORIES = [
     "Public Safety,Law & Justice",
     "Housing & Shelter",
     "Health & Wellness",
-    "Education & Learning",
+    "Education",
     "Business & Entrepreneurship",
     "Banking, Financial Services and Insurance",
     "Agriculture,Rural & Environment"
 ];
+
+const RESIDENCE= [
+    "Rural", "Urban", "Both"
+];
+const EMPLOYMENTSTATUS = [
+    "Unemployed", "Employed", "Self Employed"
+];
+
+const OCCUPATION=[
+  "farmer","agricultural laborer","construction worker","skilled laborer","government employee","private sector employee","shopkeeper-business owner","street vendor","factory worker","domestic worker","driver-transport worker","artisan-craftsman","student","unemployed","homemaker","other",
+]
+
+const MINORITY =["yes","no"]
+const DIFFERENTLYABLED =["yes","no"]
 
 const MINISTRIES = [
     "Ministry Of Culture",
@@ -68,6 +82,11 @@ const SchemeSearch = ({ onSearch }) => {
         category: "",
         gender: "",
         incomeGroup: "",
+        occupation: "",
+        residence: "",
+        differentlyAbbled: "",
+        minority:"",
+        casteCategory: "",
     });
 
     const [activeTab, setActiveTab] = useState('basic');
@@ -246,9 +265,9 @@ const SchemeSearch = ({ onSearch }) => {
                       icon={Users}
                     />
                     <SelectField
-                      label="Income Group"
-                      name="incomeGroup"
-                      value={filters.incomeGroup}
+                      label="caste category"
+                      name="casteCategory"
+                      value={filters.casteCategory}
                       onChange={handleFilterChange}
                       options={["EWS", "General", "OBC", "SC", "ST"]}
                       icon={Coins}
@@ -257,7 +276,53 @@ const SchemeSearch = ({ onSearch }) => {
                 )}
       
                 {activeTab === 'dates' && (
+                <>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <SelectField
+                    label="occupation"
+                    name="occupation"
+                    value={filters.occupation}
+                    onChange={handleFilterChange}
+                    // value={filters.gender}
+                    // onChange={handleFilterChange}
+                    options={OCCUPATION}
+                    icon={Users}
+                  />
+                  <SelectField
+                    label="Residence"
+                    name="residence"
+                    // name="incomeGroup"
+                    value={filters.residence}
+                    onChange={handleFilterChange}
+                    options={RESIDENCE}
+                    icon={MapPin}
+                    // icon={Coins}
+                  />
+                                    <SelectField
+                    label="differentlyabled"
+                    name="differentlyabled"
+                    // name="residence"
+                    // name="incomeGroup"
+                    value={filters.differentlyAbbled}
+                    onChange={handleFilterChange}
+                    options={DIFFERENTLYABLED}
+                    icon={Users}
+                    // icon={Coins}
+                  />
+                                                      <SelectField
+                    label="minority"
+                    name="minority"
+                    // name="differentlyabled"
+                    // name="residence"
+                    // name="incomeGroup"
+                    value={filters.minority}
+                    onChange={handleFilterChange}
+                    options={MINORITY}
+                    icon={Users}
+                    // icon={Coins}
+                  />
+                </div>
+                  {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="relative">
                       <label className="block text-sm font-medium text-gray-700 mb-1.5">Open Date</label>
                       <div className="relative">
@@ -284,7 +349,8 @@ const SchemeSearch = ({ onSearch }) => {
                         <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
                       </div>
                     </div>
-                  </div>
+                  </div> */}
+                  </>
                 )}
               </div>
             </div>
