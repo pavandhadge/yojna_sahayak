@@ -161,7 +161,7 @@ const SchemeSearch = ({ onSearch }) => {
         { id: 'basic', label: 'Basic Filters', icon: Filter },
         { id: 'location', label: 'Location', icon: MapPin },
         { id: 'eligibility', label: 'Eligibility', icon: Users },
-        { id: 'dates', label: 'Dates', icon: Calendar },
+        { id: 'Personal Details', label: 'Personal Details', icon: Calendar },
     ];
 
     return (
@@ -275,7 +275,7 @@ const SchemeSearch = ({ onSearch }) => {
                   </div>
                 )}
       
-                {activeTab === 'dates' && (
+                {activeTab === 'Personal Details' && (
                 <>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <SelectField

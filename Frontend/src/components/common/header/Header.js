@@ -5,6 +5,7 @@ import { UserContext } from "../../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import userAuthenticatedAxiosInstance from "../../../services/users/userAuthenticatedAxiosInstance";
 import lionlogo from "../../../assets/lionsymbol.png";
+import YL from "../../../assets/YL.svg";
 import TranslateToggle from "../translate/googleTranslater";
 import TranslatePopup from "../translate/googleTranslater";
 const Header = () => {
@@ -51,7 +52,7 @@ const Header = () => {
         <div className="absolute left-4 md:left-8 top-1/2 transform -translate-y-1/2 z-10">
           <Link className="flex items-center" to="/">
             <img
-              src={lionlogo || "/placeholder.svg"}
+              src={YL || "/placeholder.svg"}
               alt="logo"
               className="w-12 md:w-16 mr-3"
             />

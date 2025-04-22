@@ -3,6 +3,10 @@ import { ChevronRight, ChevronLeft } from 'lucide-react';
 import banner2 from "../../../../assets/banner2.webp";
 import banner3 from "../../../../assets/banner3.jpg";
 import banner4 from "../../../../assets/banner4.jpg";
+import banner5 from "../../../../assets/farmernew.jpeg";
+import banner6 from "../../../../assets/household.png";
+import banner7 from "../../../../assets/construct.png";
+import banner8 from "../../../../assets/schoolgirl.png";
 import { useNavigate } from 'react-router-dom';
 
 const HeroSection = () => {
@@ -21,6 +25,26 @@ const HeroSection = () => {
         {
             src: banner4,
             alt: "Government Schemes Banner 3",
+            priority: false
+        },
+        {
+            src: banner5,
+            alt: "Government Schemes Banner 4",
+            priority: false
+        },
+        {
+            src: banner6,
+            alt: "Government Schemes Banner 5",
+            priority: false
+        },
+        {
+            src: banner7,
+            alt: "Government Schemes Banner 6",
+            priority: false
+        },
+        {
+            src: banner8,
+            alt: "Government Schemes Banner 7",
             priority: false
         }
     ];
