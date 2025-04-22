@@ -7,6 +7,7 @@ import userAuthenticatedAxiosInstance from "../../../services/users/userAuthenti
 import lionlogo from "../../../assets/lionsymbol.png";
 import TranslateToggle from "../translate/googleTranslater";
 import TranslatePopup from "../translate/googleTranslater";
+import Yojana_Sahayak_logo from "../../../assets/Yojana_Sahayak_logo.svg";
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -51,7 +52,7 @@ const Header = () => {
         <div className="absolute left-4 md:left-8 top-1/2 transform -translate-y-1/2 z-10">
           <Link className="flex items-center" to="/">
             <img
-              src={lionlogo || "/placeholder.svg"}
+              src={Yojana_Sahayak_logo || "/placeholder.svg"}
               alt="logo"
               className="w-12 md:w-16 mr-3"
             />

@@ -72,6 +72,7 @@ export const getAllSchemes = async (page = 1, limit = 9) => {
 export const getSchemeById = async (id) => {
     try {
         const { data } = await api.get(`/get-scheme-by-id/${id}`);
+        console.log("Scheme Data:", data);
         return data;
     } catch (error) {
         throw error.response?.data || error.message;
