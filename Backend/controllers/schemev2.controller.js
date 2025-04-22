@@ -646,7 +646,7 @@ const getSchemeByCategory = async (req, res) => {
 // };
 const getFilteredSchemes = async (req, res) => {
   try {
-    const {
+    let {
       page = 1,
       limit = 9,
       search,
@@ -666,6 +666,10 @@ const getFilteredSchemes = async (req, res) => {
       casteCategory,
     } = req.query;
 
+    if (gender && gender.toLowerCase() === 'other') {
+      gender = null;
+    }
+
     const parsedPage = parseInt(page, 10);
     const parsedLimit = parseInt(limit, 10);
 
@@ -677,6 +681,21 @@ const getFilteredSchemes = async (req, res) => {
       should.push({
         text: {
           query: search,
+          path: [
+            "schemeName",
+            "schemeShortTitle",
+            "detailedDescription_md",
+            "tags",
+          ],
+          score: { boost: { value: 3 } },
+        },
+      });
+    }
+
+    if (casteCategory) {
+      should.push({
+        text: {
+          query: casteCategory,
           path: [
             "schemeName",
             "schemeShortTitle",
@@ -765,12 +784,12 @@ const getFilteredSchemes = async (req, res) => {
     addExactFilter(level, "level",false);
     addExactFilter(nodalMinistryName, "nodalMinistryName.label");
     addExactFilter(gender, "gender");
-    addExactFilter(incomeGroup, "metadata.incomeGroup");
+    // addExactFilter(incomeGroup, "tags");
     addExactFilter(occupation, "metadata.occupation");
     addExactFilter(residence, "metadata.residence");
     addExactFilter(differentlyabled, "metadata.differentlyAbled", false);
     addExactFilter(minority, "metadata.minority");
-    addExactFilter(casteCategory, "metadata.casteCategory");
+    // addExactFilter(casteCategory, "tags");
 
     const compoundQuery = {};
     if (filter.length > 0) compoundQuery.filter = filter;
