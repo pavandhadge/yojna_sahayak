@@ -42,7 +42,6 @@ const getAllSchemes = async (req, res) => {
 const getSchemeById = async (req, res) => {
   try {
     const scheme = await Schemev2.findById(req.params.id);
-    console.log("scheme", scheme);
     res.status(200).json(scheme);
   } catch (error) {
     res.status(404).json({ message: "Scheme not found" });

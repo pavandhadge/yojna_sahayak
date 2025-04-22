@@ -1,6 +1,3 @@
-import Yojana_Sahayak_logo from "../../../assets/Yojana_Sahayak_logo.svg";
-
-
 const Footer = () => {
   const footerLinks = [
     {
@@ -104,7 +101,7 @@ const Footer = () => {
               <div className="flex items-center gap-3 sm:gap-4">
                 <img
                   alt="Yojna Sahayak Logo"
-                  src={Yojana_Sahayak_logo || "/placeholder.svg"}
+                  src="https://tailwind-generator.b-cdn.net/favicon.png"
                   className="w-12 h-12 sm:w-16 sm:h-16"
                 />
                 <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">

@@ -215,7 +215,7 @@ const SchemeDetails = () => {
                     {scheme?.nodalMinistryName && (
                         <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-xs hover:shadow-sm transition-shadow">
                             <p className="text-xs text-gray-500 uppercase tracking-wider mb-2">Ministry</p>
-                            <p className="font-medium text-gray-900">{scheme.nodalMinistryName}</p>
+                            <p className="font-medium text-gray-900">{scheme.nodalMinistryName?.label}</p>
                         </div>
                     )}
                     {scheme?.state && (
