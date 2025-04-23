@@ -117,12 +117,7 @@ const Header = () => {
                   >
                     Profile
                   </Link>
-                  <Link
-                    to="/favourite"
-                    className="text-white hover:text-green-100 font-bold transition-colors"
-                  >
-                    Saved
-                  </Link>
+                  {/*  */}
                   <button
                     onClick={handleLogout}
                     className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors"
