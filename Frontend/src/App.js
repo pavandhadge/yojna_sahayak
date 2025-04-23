@@ -59,11 +59,11 @@ function App() {
                 <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="/terms-of-service" element={<TermsOfService />} />
                 <Route path="/cookies-policy" element={<CookiesPolicy />} />
-                <Route path="/favourite" element={<SavedSchemesPage />} />
               </Route>
 
               {/* Protected Routes - Only Accessible When Logged In */}
               <Route element={<ProtectedRoutes />}>
+                <Route path="/favourite" element={<SavedSchemesPage />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/recommendations" element={<Recommendations />} />
               </Route>
