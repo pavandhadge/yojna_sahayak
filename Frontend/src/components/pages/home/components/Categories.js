@@ -87,66 +87,77 @@ const Categories = () => {
     {
       icon: GraduationCap,
       title: "Education",
+      redirect: "Education",
       description: "50+ schemes",
       color: { text: "text-blue-600", bg: "bg-blue-600" },
     },
     {
       icon: Heart,
       title: "Healthcare",
+      redirect: "Health & Wellness",
       description: "40+ schemes",
       color: { text: "text-rose-600", bg: "bg-rose-600" },
     },
     {
       icon: Users,
       title: "Women Empowerment",
+      redirect: "Women and Child",
       description: "30+ schemes",
       color: { text: "text-violet-600", bg: "bg-violet-600" },
     },
     {
       icon: Briefcase,
       title: "Employment",
+      redirect: "Skills & Employment",
       description: "45+ schemes",
       color: { text: "text-amber-600", bg: "bg-amber-600" },
     },
     {
       icon: Home,
       title: "Housing",
+      redirect: "Housing & Shelter",
       description: "25+ schemes",
       color: { text: "text-emerald-600", bg: "bg-emerald-600" },
     },
     {
       icon: Sprout,
       title: "Agriculture",
+      redirect: "Agriculture,Rural & Environment",
       description: "35+ schemes",
       color: { text: "text-lime-600", bg: "bg-lime-600" },
     },
     {
       icon: Book,
       title: "Skill Development",
+      redirect: "Skills & Employment",
       description: "20+ schemes",
       color: { text: "text-indigo-600", bg: "bg-indigo-600" },
     },
     {
       icon: Truck,
       title: "Transportation",
+      redirect: "Transport & Infrastructure Sports & Culture",
       description: "15+ schemes",
       color: { text: "text-orange-600", bg: "bg-orange-600" },
     },
     {
       icon: Sun,
       title: "Energy",
+      redirect: "energy",
       description: "10+ schemes",
       color: { text: "text-yellow-500", bg: "bg-yellow-500" },
     },
     {
       icon: Wifi,
       title: "Digital India",
+      redirect: "Science, IT & Communications",
       description: "25+ schemes",
       color: { text: "text-sky-600", bg: "bg-sky-600" },
     },
     {
       icon: Zap,
       title: "Rural Development",
+      redirect: "Agriculture,Rural & Environment",
       description: "30+ schemes",
       color: { text: "text-green-600", bg: "bg-green-600" },
     },
@@ -169,7 +180,7 @@ const Categories = () => {
           {categories.map((category, index) => (
             <div
               key={index}
-              onClick={() => navigate(`/schemes?cat=${category.title}`)}
+              onClick={() => navigate(`/schemes?cat=${category.redirect}`)}
               className="hover:-translate-y-1 transition-transform duration-300"
             >
               <CategoryCard {...category} />
