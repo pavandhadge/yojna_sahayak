@@ -46,7 +46,6 @@ const Header = () => {
 
   return (
     <>
-     
       <header className="bg-gradient-to-r from-green-500 to-green-600 h-20 flex items-center justify-center px-4 md:px-8 w-full relative shadow-md">
         {/* Logo and company name with z-index to appear above other elements */}
         <div className="absolute left-4 md:left-8 top-1/2 transform -translate-y-1/2 z-10">
@@ -88,14 +87,19 @@ const Header = () => {
           >
             Suggestions
           </Link>
+          <Link
+            to="/favourite"
+            className="text-white hover:text-green-100 font-bold transition-colors"
+          >
+            Saved
+          </Link>
         </nav>
 
         {/* Login/profile section - positioned absolutely on the right */}
         <div className="absolute right-4 md:right-8 top-1/2 transform -translate-y-1/2 flex gap-4 items-center">
-        <div className="hidden md:block">
-
-          <TranslatePopup/>
-        </div>
+          <div className="hidden md:block">
+            <TranslatePopup />
+          </div>
           {isUserLoggedIn ? (
             <div className="relative" ref={profileRef}>
               <button
@@ -172,7 +176,7 @@ const Header = () => {
               >
                 Suggestions
               </Link>
-              <TranslatePopup/>
+              <TranslatePopup />
             </div>
           </div>
         )}
