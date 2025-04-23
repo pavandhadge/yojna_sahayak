@@ -423,8 +423,6 @@ const getSchemeByCategory = async (req, res) => {
 //   }
 // };
 
-
-
 // const getFilteredSchemes = async (req, res) => {
 //   try {
 //     const {
@@ -493,7 +491,7 @@ const getSchemeByCategory = async (req, res) => {
 //       const rangeFilter = {};
 //       if (openDate) rangeFilter.gte = new Date(openDate);
 //       if (closeDate) rangeFilter.lte = new Date(closeDate);
-      
+
 //       must.push({
 //         range: {
 //           path: "createdAt", // Assuming createdAt represents scheme creation date
@@ -666,7 +664,7 @@ const getFilteredSchemes = async (req, res) => {
       casteCategory,
     } = req.query;
 
-    if (gender && gender.toLowerCase() === 'other') {
+    if (gender && gender.toLowerCase() === "other") {
       gender = null;
     }
 
@@ -745,44 +743,43 @@ const getFilteredSchemes = async (req, res) => {
     const addExactFilter = (value, path, fallbackToMissing = false) => {
       // Only proceed if there's a value provided for this filter
       if (value) {
-        
         // Step 1: Build basic filter — match documents where the field matches the given value
         const shouldConditions = [
-          { 
+          {
             text: {
-              query: value,  // The filter value to match
-              path: path     // The document field (can be nested like "metadata.occupation")
-            }
-          }
+              query: value, // The filter value to match
+              path: path, // The document field (can be nested like "metadata.occupation")
+              matchCriteria: "all",
+            },
+          },
         ];
-    
+
         // Step 2: (Optional) Add a secondary condition to ALSO match documents where the field is missing
         // This helps in cases where a missing field should be treated as "not applicable" and included
         if (fallbackToMissing) {
           shouldConditions.push({
             compound: {
               mustNot: [
-                { exists: { path } } // "must not exist" = field is missing/null/undefined
-              ]
-            }
+                { exists: { path } }, // "must not exist" = field is missing/null/undefined
+              ],
+            },
           });
         }
-    
+
         // Step 3: Add this entire set of conditions into the main `filter` array
         // We use `compound.should` so that:
         // - If any condition in `shouldConditions` matches, the document passes the filter
         filter.push({
           compound: {
-            should: shouldConditions
-          }
+            should: shouldConditions,
+          },
         });
       }
     };
-    
 
-    addExactFilter(state, "state",false);
-    addExactFilter(level, "level",false);
-    addExactFilter(nodalMinistryName, "nodalMinistryName.label");
+    addExactFilter(state, "state", false);
+    addExactFilter(level, "level", false);
+    addExactFilter(nodalMinistryName, "nodalMinistryName");
     addExactFilter(gender, "gender");
     // addExactFilter(incomeGroup, "tags");
     addExactFilter(occupation, "metadata.occupation");
@@ -830,7 +827,7 @@ const getFilteredSchemes = async (req, res) => {
             { $limit: parsedLimit },
           ],
         },
-      }
+      },
     );
 
     const result = await Schemev2.aggregate(pipeline);
@@ -847,14 +844,13 @@ const getFilteredSchemes = async (req, res) => {
     });
   } catch (err) {
     console.error("Error retrieving filtered schemes:", err);
-    res.status(500).json({ 
+    res.status(500).json({
       success: false,
       message: "Error retrieving filtered schemes",
-      error: err.message || err.errmsg || "Unknown error" 
+      error: err.message || err.errmsg || "Unknown error",
     });
   }
 };
-
 
 // save favorite schemes
 
@@ -870,7 +866,7 @@ const saveFavoriteSchemes = async (req, res) => {
     const user = await User.findByIdAndUpdate(
       userId,
       { $push: { favorites: schemeId } },
-      { new: true }
+      { new: true },
     );
 
     // Return a success response
@@ -890,7 +886,7 @@ const removeFavoriteSchemes = async (req, res) => {
     const user = await User.findByIdAndUpdate(
       userId,
       { $pull: { favorites: id } },
-      { new: true }
+      { new: true },
     );
 
     if (!user) {
