@@ -1,4 +1,4 @@
-# Scheme Seva - Government Scheme Management Portal
+# Yojna Sahayak - Government Scheme Management Portal
 
 A comprehensive platform that helps citizens discover, understand, and access government schemes in India.
 
@@ -57,7 +57,7 @@ A comprehensive platform that helps citizens discover, understand, and access go
 
 1. Clone the repository
 ```bash
-git clone https://github.com/9582anupam/scheme-seva
+git clone https://github.com/pavandhadge/yojna_sahayak
 ```
 
 2. Frontend Setup
@@ -81,7 +81,6 @@ ACCESS_TOKEN_SECRET=your_access_token_secret
 ACCESS_TOKEN_EXPIRY=your_refresh_token_secret_expiry
 REFRESH_TOKEN_SECRET=your_refresh_token_secret
 REFRESH_TOKEN_EXPIRY=your_access_token_secret_expiry
-GEMINI_API_KEY=your_gemini_api_key
 ```
 
 5. Start Backend Server
