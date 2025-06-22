@@ -1,4 +1,4 @@
-import { Info, Target, Users, Shield, Globe, Award, BookOpen, HeartHandshake } from "lucide-react";
+import { Info, Target, Users, Shield, Globe } from "lucide-react";
 
 const AboutUs = () => {
   return (
@@ -10,7 +10,8 @@ const AboutUs = () => {
             Empowering Citizens Through Information
           </h1>
           <p className="text-xl max-w-3xl mx-auto mb-8">
-            We bridge the gap between government initiatives and the people who need them most
+            We bridge the gap between government initiatives and the people who
+            need them most
           </p>
           <div className="flex justify-center gap-4">
             <button className="bg-white text-green-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition duration-300">
@@ -41,15 +42,15 @@ const AboutUs = () => {
                   Connecting Citizens to Opportunities
                 </h3>
                 <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                  Founded in 2020, our platform was created to simplify access to government 
-                  welfare programs. We recognized that millions of eligible citizens were 
-                  missing out on benefits simply because they couldn't navigate complex 
-                  application processes.
+                  Founded in 2020, our platform was created to simplify access
+                  to government welfare programs. We recognized that millions of
+                  eligible citizens were missing out on benefits simply because
+                  they couldn't navigate complex application processes.
                 </p>
                 <p className="text-lg text-gray-600 leading-relaxed">
-                  Today, we serve as a comprehensive resource for all central and state 
-                  government schemes, with verified information updated weekly by our team 
-                  of policy experts.
+                  Today, we serve as a comprehensive resource for all central
+                  and state government schemes, with verified information
+                  updated weekly by our team of policy experts.
                 </p>
               </div>
               <div className="bg-gray-100 rounded-xl overflow-hidden h-80">
@@ -63,19 +64,27 @@ const AboutUs = () => {
             {/* Stats Section */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
               <div className="bg-green-50 p-6 rounded-xl text-center">
-                <div className="text-4xl font-bold text-green-700 mb-2">50+</div>
+                <div className="text-4xl font-bold text-green-700 mb-2">
+                  50+
+                </div>
                 <div className="text-gray-600">Government Departments</div>
               </div>
               <div className="bg-green-50 p-6 rounded-xl text-center">
-                <div className="text-4xl font-bold text-green-700 mb-2">1M+</div>
+                <div className="text-4xl font-bold text-green-700 mb-2">
+                  1M+
+                </div>
                 <div className="text-gray-600">Monthly Visitors</div>
               </div>
               <div className="bg-purple-50 p-6 rounded-xl text-center">
-                <div className="text-4xl font-bold text-purple-700 mb-2">5K+</div>
+                <div className="text-4xl font-bold text-purple-700 mb-2">
+                  5K+
+                </div>
                 <div className="text-gray-600">Schemes Listed</div>
               </div>
               <div className="bg-orange-50 p-6 rounded-xl text-center">
-                <div className="text-4xl font-bold text-orange-700 mb-2">24/7</div>
+                <div className="text-4xl font-bold text-orange-700 mb-2">
+                  24/7
+                </div>
                 <div className="text-gray-600">Support Available</div>
               </div>
             </div>
@@ -102,7 +111,8 @@ const AboutUs = () => {
                 Clarity
               </h3>
               <p className="text-gray-600">
-                We break down complex policies into simple, actionable information that anyone can understand.
+                We break down complex policies into simple, actionable
+                information that anyone can understand.
               </p>
             </div>
             <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow">
@@ -111,7 +121,8 @@ const AboutUs = () => {
                 Accessibility
               </h3>
               <p className="text-gray-600">
-                Our platform is designed for everyone, regardless of education level or technical ability.
+                Our platform is designed for everyone, regardless of education
+                level or technical ability.
               </p>
             </div>
             <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow">
@@ -120,7 +131,8 @@ const AboutUs = () => {
                 Integrity
               </h3>
               <p className="text-gray-600">
-                We provide accurate, unbiased information verified by our team of experts.
+                We provide accurate, unbiased information verified by our team
+                of experts.
               </p>
             </div>
           </div>
@@ -139,22 +151,39 @@ const AboutUs = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {[
-                { name: "Mr. Sharad Etthar", role: "Tech Lead", bio: "Built India's first welfare scheme search engine" },
-                { name: "Mr. Yash Saindane ", role: "Data Analyst", bio: "Ensures our information stays current" },
-              { name: " Mr. Devandhu Deshmukh", role: "Policy Expert", bio: "Former civil servant with 15 years experience" },
-              { name: "Mr. Jaivyankatesh Yadav", role: "Community Outreach", bio: "Connects NGOs with beneficiaries" },
+              {
+                name: "Sharad Etthar",
+                role: "developer",
+                bio: "SDE at LTI Mindtree",
+                responsibilities: "Database + Frontend",
+              },
+              {
+                name: "Pavan Dhadge",
+                role: "Developer",
+                bio: "Loves to code",
+                responsibilities: "Backend + Frontend + Auth",
+              },
             ].map((member, index) => (
-              <div key={index} className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
+              <div
+                key={index}
+                className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow"
+              >
                 <div className="bg-green-100 h-48 flex items-center justify-center">
                   <div className="w-32 h-32 rounded-full bg-green-600 flex items-center justify-center text-white text-4xl font-bold">
-                    {member.name.split(' ').map(n => n[0]).join('')}
+                    {member.name
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")}
                   </div>
                 </div>
                 <div className="p-6">
                   <h3 className="font-bold text-xl mb-1">{member.name}</h3>
-                  <p className="text-green-600 mb-3">{member.role}</p>
+                  <p className="text-green-600 mb-1">{member.role}</p>
+                  <p className="text-gray-800 italic mb-3">
+                    {member.responsibilities}
+                  </p>
                   <p className="text-gray-600">{member.bio}</p>
                 </div>
               </div>
@@ -170,7 +199,8 @@ const AboutUs = () => {
             Ready to Find Benefits You Qualify For?
           </h2>
           <p className="text-xl max-w-2xl mx-auto mb-8">
-            Join millions of citizens who've discovered government programs through our platform
+            Join millions of citizens who've discovered government programs
+            through our platform
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <button className="bg-white text-green-700 px-8 py-4 rounded-lg font-bold hover:bg-gray-100 transition duration-300 text-lg">
