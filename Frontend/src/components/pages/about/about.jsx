@@ -42,7 +42,7 @@ const AboutUs = () => {
                   Connecting Citizens to Opportunities
                 </h3>
                 <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                  Founded in 2020, our platform was created to simplify access
+                  Founded in 2024, our platform was created to simplify access
                   to government welfare programs. We recognized that millions of
                   eligible citizens were missing out on benefits simply because
                   they couldn't navigate complex application processes.
@@ -62,7 +62,7 @@ const AboutUs = () => {
             </div>
 
             {/* Stats Section */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+            {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
               <div className="bg-green-50 p-6 rounded-xl text-center">
                 <div className="text-4xl font-bold text-green-700 mb-2">
                   50+
@@ -78,6 +78,30 @@ const AboutUs = () => {
               <div className="bg-purple-50 p-6 rounded-xl text-center">
                 <div className="text-4xl font-bold text-purple-700 mb-2">
                   5K+
+                </div>
+                <div className="text-gray-600">Schemes Listed</div>
+              </div>
+              <div className="bg-orange-50 p-6 rounded-xl text-center">
+                <div className="text-4xl font-bold text-orange-700 mb-2">
+                  24/7
+                </div>
+                <div className="text-gray-600">Support Available</div>
+              </div>
+            </div> */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+              <div className="bg-green-50 p-6 rounded-xl text-center">
+                <div className="text-4xl font-bold text-green-700 mb-2">
+                  30+
+                </div>
+                <div className="text-gray-600">Government Departments</div>
+              </div>
+              <div className="bg-green-50 p-6 rounded-xl text-center">
+                <div className="text-4xl font-bold text-green-700 mb-2">8</div>
+                <div className="text-gray-600">Languages Supported</div>
+              </div>
+              <div className="bg-purple-50 p-6 rounded-xl text-center">
+                <div className="text-4xl font-bold text-purple-700 mb-2">
+                  2K+
                 </div>
                 <div className="text-gray-600">Schemes Listed</div>
               </div>
@@ -151,7 +175,7 @@ const AboutUs = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {/* <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {[
               {
                 name: "Sharad Etthar",
@@ -185,6 +209,31 @@ const AboutUs = () => {
                     {member.responsibilities}
                   </p>
                   <p className="text-gray-600">{member.bio}</p>
+                </div>
+              </div>
+            ))}
+          </div> */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
+            {[
+              { name: "Pava Dhadge" },
+              { name: "Dipak Ghadge" },
+              { name: "Atharva Golwalkar" },
+              { name: "Prathamesh Gajare" },
+            ].map((member, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow"
+              >
+                <div className="bg-green-100 h-48 flex items-center justify-center">
+                  <div className="w-32 h-32 rounded-full bg-green-600 flex items-center justify-center text-white text-4xl font-bold">
+                    {member.name
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")}
+                  </div>
+                </div>
+                <div className="p-6 text-center">
+                  <h3 className="font-bold text-xl mb-1">{member.name}</h3>
                 </div>
               </div>
             ))}
