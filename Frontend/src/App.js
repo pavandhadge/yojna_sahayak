@@ -28,18 +28,7 @@ function App() {
 
           {/* HEADER-NAVBAR-SIDEBAR */}
           <div className="fixed z-40 w-full">
-            {/* {console.log("BACKEND_URL", process.env.REACT_APP_BACKEND_URL)} */}
-            {/* <div
-                            className={`${isSidebarActive ? "active" : ""
-                                } sidebar-parent z-50`}
-                            ref={sidebarRef}>
-                            <Sidebar />
-                        </div> */}
             <Header />
-            {/* <NavBar />
-                        <div className="min-h-12 md:hidden block">
-                            <SearchBar size={"medium"} />
-                        </div> */}
           </div>
 
           {/* CONTENT */}
