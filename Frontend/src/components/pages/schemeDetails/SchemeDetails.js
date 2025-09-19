@@ -250,8 +250,7 @@ const SchemeDetails = () => {
             </div>
           </div>
         </div>
-        import {Sparkles} from "lucide-react"; // ... (rest of the imports) //
-        ... (rest of the component code)
+
         {/* Meta information */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
           {scheme?.nodalMinistryName && (
