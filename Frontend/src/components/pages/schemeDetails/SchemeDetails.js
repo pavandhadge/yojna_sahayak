@@ -21,6 +21,7 @@ import {
   MessageCircle,
   AlertCircle,
   HelpCircle,
+  Sparkles,
 } from "lucide-react";
 import ChatBot from "../../common/chatbot/ChatBot";
 import { generatePDF } from "../../../helper/generatePdf";
@@ -249,7 +250,8 @@ const SchemeDetails = () => {
             </div>
           </div>
         </div>
-
+        import {Sparkles} from "lucide-react"; // ... (rest of the imports) //
+        ... (rest of the component code)
         {/* Meta information */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
           {scheme?.nodalMinistryName && (
@@ -271,13 +273,16 @@ const SchemeDetails = () => {
             </div>
           )}
           <div
-            className="bg-white p-5 rounded-xl border border-gray-100 shadow-xs hover:shadow-sm transition-shadow cursor-pointer"
+            className="bg-gradient-to-br from-green-400 to-blue-500 p-5 rounded-xl border border-transparent shadow-lg hover:shadow-xl transition-shadow cursor-pointer flex items-center justify-center text-white"
             onClick={() => setIsChatbotOpen(true)}
           >
-            <p className="text-xs text-gray-500 uppercase tracking-wider mb-2">
-              AI Assistant
-            </p>
-            <p className="font-medium text-gray-900">Ask a question</p>
+            <Sparkles className="mr-3" size={24} />
+            <div className="text-center">
+              <p className="text-xs uppercase tracking-wider mb-1">
+                AI Assistant
+              </p>
+              <p className="font-bold text-lg">Ask a question</p>
+            </div>
           </div>
           {scheme?.openDate && (
             <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-xs hover:shadow-sm transition-shadow">
@@ -300,7 +305,6 @@ const SchemeDetails = () => {
             </div>
           )}
         </div>
-
         {isChatbotOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-50 z-[1000] flex items-center justify-center">
             <ChatBot
@@ -310,7 +314,6 @@ const SchemeDetails = () => {
             />
           </div>
         )}
-
         <div ref={contentRef} className="space-y-6">
           {/* Overview Section */}
           <section className="bg-white rounded-xl border border-gray-100 overflow-hidden shadow-xs hover:shadow-sm transition-shadow">

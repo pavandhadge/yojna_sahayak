@@ -3,7 +3,7 @@ import { Bot, Send, X, Loader2 } from "lucide-react";
 import axios from "axios";
 
 const translations = {
-  en: {
+  English: {
     title: "Scheme Assistant",
     inputPlaceholder: "Ask about this scheme...",
     welcome:
@@ -11,7 +11,7 @@ const translations = {
     thinking: "Thinking...",
     error: "Sorry, I couldn't process your request. Please try again.",
   },
-  hi: {
+  Hindi: {
     title: "योजना सहायक",
     inputPlaceholder: "इस योजना के बारे में पूछें...",
     welcome:
@@ -20,7 +20,7 @@ const translations = {
     error:
       "क्षमा करें, मैं आपके अनुरोध को प्रोसेस नहीं कर सका। कृपया पुनः प्रयास करें।",
   },
-  pa: {
+  Punjabi: {
     title: "ਯੋਜਨਾ ਸਹਾਇਕ",
     inputPlaceholder: "ਇਸ ਯੋਜਨਾ ਬਾਰੇ ਪੁੱਛੋ...",
     welcome:
@@ -29,16 +29,16 @@ const translations = {
     error:
       "ਮਾਫ਼ ਕਰਨਾ, ਮੈਂ ਤੁਹਾਡੀ ਬੇਨਤੀ 'ਤੇ ਕਾਰਵਾਈ ਨਹੀਂ ਕਰ ਸਕਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
   },
-  bn: {
+  Bengali: {
     title: "প্রকল্প সহায়ক",
     inputPlaceholder: "এই প্রকল্প সম্পর্কে জিজ্ঞাসা করুন...",
     welcome:
       "হ্যালো! আমি আপনাকে এই প্রকল্প ভালভাবে বুঝতে সাহায্য করতে পারি। আপনি কী জানতে চান?",
     thinking: "চিন্তা করছি...",
     error:
-      "দুঃখিত, আপনার অনুরোধ প্রক্রিয়া করতে পারিনি। অনুগ্রহ করে আবার চেষ্টা করুন।",
+      "দুঃখিত, আপনার অনুরোধ প্রক্রিয়া করতে পারিনি। অনুগ্রহ করে আবার চেষ্টা করুন.",
   },
-  te: {
+  Telugu: {
     title: "పథకం సహాయకుడు",
     inputPlaceholder: "ఈ పథకం గురించి అడగండి...",
     welcome:
@@ -47,7 +47,7 @@ const translations = {
     error:
       "క్షమించండి, మీ అభ్యర్థనను ప్రాసెస్ చేయలేకపోయాను. దయచేసి మళ్లీ ప్రయత్నించండి.",
   },
-  ta: {
+  Tamil: {
     title: "திட்ட உதவியாளர்",
     inputPlaceholder: "இந்த திட்டம் பற்றி கேளுங்கள்...",
     welcome:
@@ -56,7 +56,7 @@ const translations = {
     error:
       "மன்னிக்கவும், உங்கள் கோரிக்கையை செயலாக்க முடியவில்லை. மீண்டும் முயற்சிக்கவும்.",
   },
-  gu: {
+  Gujarati: {
     title: "યોજના સહાયક",
     inputPlaceholder: "આ યોજના વિશે પૂછો...",
     welcome:
@@ -65,7 +65,7 @@ const translations = {
     error:
       "માફ કરશો, હું તમારી વિનંતી પર પ્રક્રિયા કરી શક્યો નથી. કૃપા કરીને ફરી પ્રયાસ કરો.",
   },
-  mr: {
+  Marathi: {
     title: "योजना सहाय्यक",
     inputPlaceholder: "या योजनेबद्दल विचारा...",
     welcome:
@@ -74,7 +74,7 @@ const translations = {
     error:
       "क्षमस्व, मी तुमची विनंती प्रक्रिया करू शकलो नाही. कृपया पुन्हा प्रयत्न करा.",
   },
-  kn: {
+  Kannada: {
     title: "ಯೋಜನೆ ಸಹಾಯಕ",
     inputPlaceholder: "ಈ ಯೋಜನೆಯ ಬಗ್ಗೆ ಕೇಳಿ...",
     welcome:
@@ -83,7 +83,7 @@ const translations = {
     error:
       "ಕ್ಷಮಿಸಿ, ನಿಮ್ಮ ವಿನಂತಿಯನ್ನು ಪ್ರಕ್ರಿಯೆಗೊಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
   },
-  ml: {
+  Malayalam: {
     title: "പദ്ധതി സഹായി",
     inputPlaceholder: "ഈ പദ്ധതിയെക്കുറിച്ച് ചോദിക്കൂ...",
     welcome:
@@ -92,16 +92,16 @@ const translations = {
     error:
       "ക്ഷമിക്കണം, നിങ്ങളുടെ അഭ്യർത്ഥന പ്രോസസ്സ് ചെയ്യാൻ കഴിഞ്ഞില്ല. ദയവായി വീണ്ടും ശ്രമിക്കുക.",
   },
-  or: {
+  Oriya: {
     title: "ଯୋଜନା ସହାୟକ",
-    inputPlaceholder: "ଏହି ଯୋଜନା ବିଷୟରେ ପଚାରନ୍ତୁ...",
+    inputPlaceholder: "ଏହି ଯੋଜନା ବିଷୟରେ ପଚାରନ୍ତୁ...",
     welcome:
-      "ନମସ୍କାର! ମୁଁ ଆପଣଙ୍କୁ ଏହି ଯୋଜନାକୁ ଭଲ ଭାବରେ ବୁଝିବାରେ ସାହାଯ୍ୟ କରିପାରିବି। ଆପଣ କ'ଣ ଜାଣିବାକୁ ଚାହାଁନ୍ତି?",
+      "ନମସ୍କାର! ମୁଁ ଆପଣଙ୍କୁ ଏହି ଯੋଜନାକୁ ଭଲ ଭାବରେ ବୁଝିବାରେ ସାହାଯ୍ୟ କରିପାରିବି। ଆପଣ କ'ଣ ଜାଣିବାକୁ ଚାହାଁନ୍ତି?",
     thinking: "ଚିନ୍ତା କରୁଛି...",
     error:
-      "କ୍ଷମା କରନ୍ତୁ, ମୁଁ ଆପଣଙ୍କ ଅନୁରୋଧକୁ ପ୍ରକ୍ରିୟା କରିପାରିଲି ନାହିଁ। ଦୟାକରି ପୁନଃଚେଷ୍ଟା କରନ୍ତୁ।",
+      "କ୍ଷମା କରନ୍ତୁ, ମୁଁ ଆପଣଙ୍କ ଅନୁରੋଧକୁ ପ୍ରକ୍ରିୟା କରିପାରିଲି ନାହିଁ। ଦୟାକରି ପୁନଃଚେଷ୍ଟା କରନ୍ତୁ।",
   },
-  ur: {
+  Urdu: {
     title: "اسکیم اسسٹنٹ",
     inputPlaceholder: "اس اسکیم کے بارے میں پوچھیں...",
     welcome:
@@ -110,7 +110,7 @@ const translations = {
     error:
       "معذرت، میں آپ کی درخواست پر عملدرآمد نہیں کر سکا۔ براہ کرم دوبارہ کوشش کریں۔",
   },
-  sa: {
+  Sanskrit: {
     title: "योजना सहायकः",
     inputPlaceholder: "अस्याः योजनायाः विषये पृच्छतु...",
     welcome:
@@ -119,16 +119,16 @@ const translations = {
     error:
       "क्षम्यताम्, भवतः अनुरोधं प्रक्रियां कर्तुं न शक्नोमि। कृपया पुनः प्रयत्नं करोतु।",
   },
-  ne: {
+  Nepali: {
     title: "योजना सहायक",
     inputPlaceholder: "यस योजनाको बारेमा सोध्नुहोस्...",
     welcome:
       "नमस्ते! म तपाईंलाई यो योजना राम्रोसँग बुझ्न मद्दत गर्न सक्छु। तपाईं के जान्न चाहनुहुन्छ?",
     thinking: "सोच्दै छु...",
     error:
-      "माफ गर्नुहोस्, म तपाईंको अनुरोध प्रक्रिया गर्न सकिनँ। कृपया पुनः प्रयास गर्नुहोस्।",
+      "माफ गर्नुहोस्, म तपाईंको अनुरोध प्रक्रिया गर्न सकिनँ। कृपया पुनः प्रयास गर्नुहोस्.",
   },
-  sd: {
+  Sindhi: {
     title: "اسڪيم جو مددگار",
     inputPlaceholder: "هن اسڪيم بابت پڇو...",
     welcome:
@@ -137,7 +137,7 @@ const translations = {
     error:
       "معذرت، مان توهان جي درخواست تي عمل نٿو ڪري سگھان. مهرباني ڪري ٻيهر ڪوشش ڪريو.",
   },
-  ks: {
+  Kashmiri: {
     title: "اسکیم مددگار",
     inputPlaceholder: "یہ اسکیم کی بارے مینٹ پوچھو...",
     welcome:
@@ -148,11 +148,30 @@ const translations = {
   },
 };
 
+const languageMap = {
+  English: "en",
+  Hindi: "hi",
+  Punjabi: "pa",
+  Bengali: "bn",
+  Telugu: "te",
+  Tamil: "ta",
+  Gujarati: "gu",
+  Marathi: "mr",
+  Kannada: "kn",
+  Malayalam: "ml",
+  Oriya: "or",
+  Urdu: "ur",
+  Sanskrit: "sa",
+  Nepali: "ne",
+  Sindhi: "sd",
+  Kashmiri: "ks",
+};
+
 const ChatBot = ({ schemeId, schemeName, onClose }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [language, setLanguage] = useState("en");
+  const [language, setLanguage] = useState("English");
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -164,24 +183,26 @@ const ChatBot = ({ schemeId, schemeName, onClose }) => {
   }, [messages]);
 
   useEffect(() => {
-    // Reset messages when language changes
+    // Reset messages and send initial message when language changes
     setMessages([
       {
         text: translations[language].welcome,
         type: "bot",
       },
     ]);
+    sendInitialMessage();
   }, [language]);
 
   const sendInitialMessage = async () => {
     setIsLoading(true);
     try {
+      const langCode = languageMap[language];
       const response = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/api/v1/chatbot/scheme-response`,
         {
           schemeId,
           question: `Tell me about the ${schemeName} scheme. (Please respond in ${language})`,
-          language,
+          language: langCode,
         },
       );
 
@@ -205,10 +226,6 @@ const ChatBot = ({ schemeId, schemeName, onClose }) => {
       setIsLoading(false);
     }
   };
-
-  useEffect(() => {
-    sendInitialMessage();
-  }, []);
 
   const formatResponse = (text) => {
     // Remove asterisks and format sections
@@ -266,12 +283,13 @@ const ChatBot = ({ schemeId, schemeName, onClose }) => {
     setIsLoading(true);
 
     try {
+      const langCode = languageMap[language];
       const response = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/api/v1/chatbot/scheme-response`,
         {
           schemeId,
-          question: `Tell me about the ${schemeName} scheme. (Please respond in ${language} even if question is in other language)`,
-          language,
+          question: `${userMessage} (Please respond in ${language} even if question is in other language)`,
+          language: langCode,
         },
       );
 
@@ -311,7 +329,7 @@ const ChatBot = ({ schemeId, schemeName, onClose }) => {
           >
             {Object.keys(translations).map((lang) => (
               <option key={lang} value={lang}>
-                {lang.toUpperCase()}
+                {lang}
               </option>
             ))}
           </select>
